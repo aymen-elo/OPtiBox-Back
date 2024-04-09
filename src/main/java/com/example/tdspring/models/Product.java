@@ -1,9 +1,6 @@
 package com.example.tdspring.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +20,9 @@ public class Product {
     private String size;
     private String cmu;
     private String location; // Référence à distribution ?
+    @Column(length = 20971520)
     private String picture;
+    @Transient
+    private byte[] pictureBase64;
 
 }
