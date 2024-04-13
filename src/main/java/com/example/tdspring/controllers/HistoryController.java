@@ -24,8 +24,24 @@ public class HistoryController {
     private final StockService stockService;
 
     @GetMapping
-    public ResponseEntity<List<History>> getHistorys() {
+    public ResponseEntity<List<History>> getHistory() {
         return new ResponseEntity<>(this.historyService.getAllHistory(), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/withdraw")
+    public ResponseEntity<List<History>> getWithdrawAndDeposit() {
+        return new ResponseEntity<>(this.historyService.getWithdraw(), HttpStatus.OK);
+    }
+
+    @GetMapping("/deposit")
+    public ResponseEntity<List<History>> getDeposit() {
+        return new ResponseEntity<>(this.historyService.getDeposit(), HttpStatus.OK);
+    }
+
+    @GetMapping("/checks")
+    public ResponseEntity<List<History>> getChecks() {
+        return new ResponseEntity<>(this.historyService.getChecks(), HttpStatus.OK);
 
     }
 

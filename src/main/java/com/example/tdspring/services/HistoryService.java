@@ -19,6 +19,18 @@ public class HistoryService {
         return this.historyRepository.findAll();
     }
 
+    public List<History> getWithdraw() {
+        return this.historyRepository.findByType("withdraw");
+    }
+
+    public List<History> getDeposit() {
+        return this.historyRepository.findByType("deposit");
+    }
+
+    public List<History> getChecks() {
+        return this.historyRepository.findByType("check");
+    }
+
     public History updateHistory(History history) throws DBException, NotFoundException {
         History existing;
 
