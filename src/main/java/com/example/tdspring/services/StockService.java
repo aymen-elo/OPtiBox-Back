@@ -19,6 +19,14 @@ public class StockService {
         return this.stockRepository.findAll();
     }
 
+    public List<Stock> getAvalaibleStocks() {
+        return this.stockRepository.findByAvailable(true);
+    }
+
+    public List<Stock> getUnavailableStocks() {
+        return this.stockRepository.findByAvailable(false);
+    }
+
     public Stock updateStock(Stock stock) throws DBException, NotFoundException {
         Stock existing;
 

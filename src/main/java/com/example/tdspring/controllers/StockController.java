@@ -23,7 +23,16 @@ public class StockController {
     @GetMapping
     public ResponseEntity<List<Stock>> getStocks() {
         return new ResponseEntity<>(this.stockService.getAllStocks(), HttpStatus.OK);
+    }
 
+    @GetMapping("/getAvailableStocks")
+    public ResponseEntity<List<Stock>> getAvalaibleStocks() {
+        return new ResponseEntity<>(this.stockService.getAvalaibleStocks(), HttpStatus.OK);
+    }
+
+    @GetMapping("/getUnavailableStocks")
+    public ResponseEntity<List<Stock>> getUnavailableStocks() {
+        return new ResponseEntity<>(this.stockService.getUnavailableStocks(), HttpStatus.OK);
     }
 
 
