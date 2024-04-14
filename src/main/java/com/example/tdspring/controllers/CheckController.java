@@ -3,7 +3,9 @@ package com.example.tdspring.controllers;
 import com.example.tdspring.exceptions.DBException;
 import com.example.tdspring.exceptions.NotFoundException;
 import com.example.tdspring.models.Check;
+import com.example.tdspring.models.Stock;
 import com.example.tdspring.services.CheckService;
+import com.example.tdspring.services.StockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import java.util.List;
 public class CheckController {
 
     private final CheckService checkService;
+    private final StockService stockService;
 
     @GetMapping
     public ResponseEntity<List<Check>> getChecks() {
@@ -30,6 +33,15 @@ public class CheckController {
     public ResponseEntity<Check> postCheck(@RequestBody Check checkSent) {
         try {
             log.info("Creating check ...");
+
+            if (checkSent.getStock().getId() == null) {
+                throw new NotFoundException("Stock not found");
+            }
+            // Set status of stock element
+            Stock stock = checkSent.getStock();
+            stock.setStatus(checkSent.getStatus() ? 1 : 0);
+            stockService.updateStock(stock);
+
             return checkSent.getId() == null ?
                     new ResponseEntity<>(this.checkService.updateCheck(checkSent), HttpStatus.CREATED) :
                     new ResponseEntity<>(this.checkService.updateCheck(checkSent), HttpStatus.ACCEPTED);
