@@ -99,7 +99,13 @@ public class UserService {
         Long stockId;
         String productName;
 
-        Action latestAction = (latestScan != null) ? latestScan : latestCheck;
+        // True when the latest Action is Scan, False when it is a Check
+        boolean scanIsLatest =
+                latestScan != null && latestCheck == null ||
+                 latestScan != null && latestScan.getDate().after(latestCheck.getDate());
+
+        Action latestAction = (latestScan != null && scanIsLatest) ? latestScan :
+                                                                      latestCheck;
 
         actionType = latestAction.getType();
         stockId = latestAction.getStock().getId();
