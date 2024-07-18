@@ -71,4 +71,11 @@ public class StockService {
         if (existing == null) throw new NotFoundException("Could not find stock with id : " + id);
         return existing;
     }
+
+    public Integer getStockByProductId(Long productId) throws NotFoundException {
+        // search in every stock if the product id is the same as the one given and count the number of stocks found
+        List<Stock> stocks = this.stockRepository.findByProductId(productId);
+        // if no stock is found, answer 0 stock, else count the number of stocks found
+        return stocks.size();
+    }
 }

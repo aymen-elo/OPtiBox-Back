@@ -76,4 +76,14 @@ public class StockController {
         }
     }
 
+    @GetMapping("/getStockByProductId/{id}")
+    public ResponseEntity<Integer> getStockByProductId(@PathVariable Long id) {
+        try {
+            return new ResponseEntity<>(this.stockService.getStockByProductId(id), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
