@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Check {
+public class Check implements Action {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,4 +27,9 @@ public class Check {
     private User user; // user reference who did the check
     private Boolean status; //true: OK, false: NOK
     private String comment;
+
+    @Override
+    public String getType() {
+        return "check";
+    }
 }

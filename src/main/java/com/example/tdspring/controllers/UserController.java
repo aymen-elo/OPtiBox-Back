@@ -67,4 +67,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/info/{id}")
+    public ResponseEntity<String> getUserInfo(@PathVariable Long id) {
+        try {
+            String info = this.userService.getUserInfo(id).toString();
+            return new ResponseEntity<>(info, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

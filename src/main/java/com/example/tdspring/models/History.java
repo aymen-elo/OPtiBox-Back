@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class History {
+public class History implements Action {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
