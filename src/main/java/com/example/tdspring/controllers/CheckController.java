@@ -39,7 +39,7 @@ public class CheckController {
             }
             // Set status of stock element
             Stock stock = checkSent.getStock();
-            stock.setStatus(checkSent.getStatus() ? 1 : 0);
+            stock.setStatus(checkSent.getStatus());
             stockService.updateStock(stock);
 
             return checkSent.getId() == null ?

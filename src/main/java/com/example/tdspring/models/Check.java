@@ -25,7 +25,7 @@ public class Check implements Action {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user; // user reference who did the check
-    private Boolean status; //true: OK, false: NOK
+    private Integer status; //true: OK, false: NOK
     private String comment;
 
     @Override
