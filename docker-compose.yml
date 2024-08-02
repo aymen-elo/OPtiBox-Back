@@ -1,0 +1,64 @@
+services:
+  spring-app:
+    build: ./spring-app
+    ports:
+      - "${SPRING_PORT}:8000"
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:mariadb://db:3306/${MYSQL_DATABASE}"
+      SPRING_DATASOURCE_USERNAME: "${MYSQL_USER}"
+      SPRING_DATASOURCE_PASSWORD: "${MYSQL_PASSWORD}"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mynetwork
+
+  webserver:
+    image: optibox_backend:8.0.3-apache-buster
+    ports:
+      - "${WEB_PORT}:80"
+    volumes:
+      - ./web-app:/var/www/html/
+    build: webserver
+    links:
+      - db
+    extra_hosts:
+      - "${WEB_HOSTNAME}:127.0.0.1"
+    hostname: ${WEB_HOSTNAME}
+    networks:
+      - mynetwork
+
+  db:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker-config/databases:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "${MYSQL_ALLOW_EMPTY_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MARIADB_AUTO_UPGRADE: "1"
+    healthcheck:
+      test: ["CMD-SHELL", "if [ -d /var/lib/mysql/moyens_levage ]; then exit 0; else exit 1; fi"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - mynetwork
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "${PMA_PORT}:80"
+    environment:
+      PMA_HOST: "${PMA_HOST}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
