@@ -11,7 +11,7 @@ services:
       db:
         condition: service_healthy
     networks:
-      - mynetwork
+      - "${SHARED_NETWORK}"
 
   webserver:
     image: optibox_backend:8.0.3-apache-buster
@@ -26,7 +26,7 @@ services:
       - "${WEB_HOSTNAME}:127.0.0.1"
     hostname: ${WEB_HOSTNAME}
     networks:
-      - mynetwork
+      - "${SHARED_NETWORK}"
 
   db:
     image: mariadb:latest
@@ -41,13 +41,13 @@ services:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       MARIADB_AUTO_UPGRADE: "1"
     healthcheck:
-      test: ["CMD-SHELL", "if [ -d /var/lib/mysql/moyens_levage ]; then exit 0; else exit 1; fi"]
+      test: ["CMD-SHELL", "if [ -d /var/lib/mysql/moyens_levage ]; then exit 0; else exit 1; fi"] # Check if the database is up
       interval: 5s
       timeout: 5s
       retries: 5
       start_period: 30s
     networks:
-      - mynetwork
+      - "${SHARED_NETWORK}"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -58,7 +58,8 @@ services:
       PMA_HOST: "${PMA_HOST}"
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
-      - mynetwork
+      - "${SHARED_NETWORK}"
 
 networks:
-  mynetwork:
+  "${SHARED_NETWORK}":
+    external: true
