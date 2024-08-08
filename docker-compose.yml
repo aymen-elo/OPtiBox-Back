@@ -1,6 +1,9 @@
+name: optibox-backend
+
 services:
   spring-app:
     build: ./spring-app
+    container_name: spring-app
     ports:
       - "${SPRING_PORT}:8000"
     environment:
@@ -11,26 +14,11 @@ services:
       db:
         condition: service_healthy
     networks:
-      - "${SHARED_NETWORK}"
-
-  webserver:
-    image: optibox_backend:8.0.3-apache-buster
-    ports:
-      - "${WEB_PORT}:80"
-    volumes:
-      - ./web-app:/var/www/html/
-    build: webserver
-    links:
-      - db
-    extra_hosts:
-      - "${WEB_HOSTNAME}:127.0.0.1"
-    hostname: ${WEB_HOSTNAME}
-    networks:
-      - "${SHARED_NETWORK}"
+      - optibox-shared-network
 
   db:
     image: mariadb:latest
-    restart: always
+    container_name: db
     ports:
       - "3306:3306"
     volumes:
@@ -47,19 +35,19 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - "${SHARED_NETWORK}"
+      - optibox-shared-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    restart: always
+    container_name: phpmyadmin
     ports:
       - "${PMA_PORT}:80"
     environment:
       PMA_HOST: "${PMA_HOST}"
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     networks:
-      - "${SHARED_NETWORK}"
+      - optibox-shared-network
 
 networks:
-  "${SHARED_NETWORK}":
+  optibox-shared-network:
     external: true
