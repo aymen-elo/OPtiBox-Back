@@ -26,7 +26,7 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "${MYSQL_ALLOW_EMPTY_PASSWORD}"
       MYSQL_USER: "${MYSQL_USER}"
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
       MARIADB_AUTO_UPGRADE: "1"
     healthcheck:
       test: ["CMD-SHELL", "if [ -d /var/lib/mysql/moyens_levage ]; then exit 0; else exit 1; fi"] # Check if the database is up
@@ -44,7 +44,7 @@ services:
       - "${PMA_PORT}:80"
     environment:
       PMA_HOST: "${PMA_HOST}"
-      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
     networks:
       - optibox-shared-network
 
