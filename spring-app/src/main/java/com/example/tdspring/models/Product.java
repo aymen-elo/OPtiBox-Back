@@ -16,6 +16,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    private String brand;
     private String type;
     private String size;
     private String cmu;

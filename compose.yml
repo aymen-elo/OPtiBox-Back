@@ -20,7 +20,7 @@ services:
     image: mariadb:latest
     container_name: db
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - ./docker-config/databases:/docker-entrypoint-initdb.d
     environment:
