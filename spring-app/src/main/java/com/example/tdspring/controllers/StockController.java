@@ -13,30 +13,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stocks")
+@RequestMapping("/stock")
 @RequiredArgsConstructor
 @Slf4j
 public class StockController {
 
     private final StockService stockService;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) 
     public ResponseEntity<List<Stock>> getStocks() {
         return new ResponseEntity<>(this.stockService.getAllStocks(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAvailableStocks")
+    @GetMapping(value = "/getAvailableStocks", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Stock>> getAvalaibleStocks() {
         return new ResponseEntity<>(this.stockService.getAvalaibleStocks(), HttpStatus.OK);
     }
 
-    @GetMapping("/getUnavailableStocks")
+    @GetMapping(value = "/getUnavailableStocks", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Stock>> getUnavailableStocks() {
         return new ResponseEntity<>(this.stockService.getUnavailableStocks(), HttpStatus.OK);
     }
 
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Stock> postStock(@RequestBody Stock stockSent) {
         try {
             log.info("Creating stock ...");
@@ -52,7 +52,7 @@ public class StockController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Stock> deleteStock(@PathVariable Long id) {
         try {
             log.info("Deleting stock ...");
@@ -66,7 +66,7 @@ public class StockController {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Stock> getStock(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(this.stockService.getStock(id), HttpStatus.OK);
@@ -76,7 +76,7 @@ public class StockController {
         }
     }
 
-    @GetMapping("/getStockByProductId/{id}")
+    @GetMapping(value = "/getStockByProductId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> getStockByProductId(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(this.stockService.getStockByProductId(id), HttpStatus.OK);

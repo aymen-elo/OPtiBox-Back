@@ -1,5 +1,4 @@
 package com.example.tdspring.models;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,11 +15,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String brand;
     private String type;
     private String size;
     private String cmu;
     private String location; // Référence à distribution ?
+    private String brand;
     @Column(length = 20971520)
     private String picture;
     @Transient
