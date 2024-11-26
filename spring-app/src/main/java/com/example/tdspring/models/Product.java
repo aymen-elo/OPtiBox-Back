@@ -1,5 +1,4 @@
 package com.example.tdspring.models;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +19,12 @@ public class Product {
     private String size;
     private String cmu;
     private String location; // Référence à distribution ?
+    private String brand;
     @Column(length = 20971520)
     private String picture;
     @Transient
     private byte[] pictureBase64;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Stock> stocks;
 }

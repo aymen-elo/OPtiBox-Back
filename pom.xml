@@ -7,6 +7,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>spring-app</module>
-        <module>webserver</module>
+        <!-- <module>webserver</module> -->
     </modules>
 </project>

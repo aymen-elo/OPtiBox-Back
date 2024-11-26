@@ -20,6 +20,7 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return this.productRepository.findAll();
     }
+    
 
     public Product updateProduct(Product product) throws DBException, NotFoundException {
         Product existing;
@@ -37,6 +38,7 @@ public class ProductService {
         existing.setSize(product.getSize());
         existing.setCmu(product.getCmu());
         existing.setLocation(product.getLocation());
+        existing.setBrand(product.getBrand());
         existing.setPicture(product.getPicture());
         // if picture == "null" or null, set picture to null
         if (existing.getPicture() == null || existing.getPicture().equals("null")) {
@@ -62,4 +64,5 @@ public class ProductService {
             throw new DBException("Could not delete product");
         }
     }
+    
 }
