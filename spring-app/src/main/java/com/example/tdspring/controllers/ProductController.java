@@ -83,7 +83,7 @@ public class ProductController {
             @RequestParam("size") String size,
             @RequestParam("cmu") String cmu,
             @RequestParam("location") String location,
-            @RequestParam("brand") Stringbrand,
+            @RequestParam("brand") String brand,
             @RequestParam("picture") String pictureFile
     ) {
         try {

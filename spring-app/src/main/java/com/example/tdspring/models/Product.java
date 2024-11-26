@@ -25,4 +25,6 @@ public class Product {
     @Transient
     private byte[] pictureBase64;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Stock> stocks;
 }

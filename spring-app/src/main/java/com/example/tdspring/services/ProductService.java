@@ -64,4 +64,5 @@ public class ProductService {
             throw new DBException("Could not delete product");
         }
     }
+    
 }

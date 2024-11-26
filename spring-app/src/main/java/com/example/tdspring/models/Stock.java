@@ -17,9 +17,11 @@ public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "id_product")
     private Product product; // product reference
+    
     private Boolean available; //true: available, false: not available
     private Integer status; //0: NOK, 1: OK, 2: HS
     private Date creationDate; //date of creation

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/stock")
+@RequestMapping("/stocks")
 @RequiredArgsConstructor
 @Slf4j
 public class StockController {
@@ -52,7 +52,7 @@ public class StockController {
         }
     }
 
-    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping("/{id}")
     public ResponseEntity<Stock> deleteStock(@PathVariable Long id) {
         try {
             log.info("Deleting stock ...");
